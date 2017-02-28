@@ -32,9 +32,9 @@ if token:
          # find all artist names in the title
          # TODO: only match & after a ( [ or -
          track_title_artists = re.split("\(|\)|\[|\]| - |[Ff]eat\.|[Rr]emix| & ", track['name'])
-         if len(track_title_artists) > 2:
+         if len(track_title_artists) > 1:
             # loop through potential artist names
-            for artist in track_title_artists[2:]:
+            for artist in track_title_artists[1:]:
                if artist is not None:
                   filter_words = ['feat.', 'remix', 'radio', 'edit', 'featuring']
                   words = artist.split()
