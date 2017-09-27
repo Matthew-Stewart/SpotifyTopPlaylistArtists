@@ -30,8 +30,7 @@ if token:
          artists = set()
          track = item['track']
          # find all artist names in the title
-         # TODO: only match & after a ( [ or -
-         track_title_artists = re.split("\(|\)|\[|\]| - |[Ff]eat\.|[Rr]emix| & ", track['name'])
+         track_title_artists = re.split("\(|\)|\[|\]| - |[Ff]eat\.|[Rr]emix", track['name'])
          if len(track_title_artists) > 1:
             # loop through potential artist names
             for artist in track_title_artists[1:]:
@@ -42,6 +41,11 @@ if token:
                   result = ' '.join(result_words)
                   # if actual artist
                   if len(result) > 0 and "mix" not in result.lower():
+                     if result.find(" & "):
+                        possible_artists = result.split(" & ")
+                        if len(possible_artists) > 1:
+                           artists.update([possible_artists[0]])
+                           artists.update([possible_artists[1]])
                      artists.update([result])
          # find all artists from track info
          artists_names = [x['name'] for x in track['artists']]
